@@ -1,5 +1,5 @@
 import { Separator } from "@/components/ui/separator";
-import { Facebook, Instagram, Twitter } from "lucide-react";
+import { Instagram } from "lucide-react";
 
 export function SiteFooter() {
   return (
@@ -22,9 +22,6 @@ export function SiteFooter() {
               <li className="text-muted-foreground hover:text-primary transition-colors">
                 <span>07881774722</span>
               </li>
-              <li className="text-muted-foreground hover:text-primary transition-colors">
-                <span>123 Luxury Lane, Suite 500</span>
-              </li>
             </ul>
           </div>
 
@@ -37,20 +34,6 @@ export function SiteFooter() {
                 aria-label="Instagram"
               >
                 <Instagram className="h-6 w-6 text-primary" />
-              </a>
-              <a 
-                href="#" 
-                className="p-3 rounded-full hover:bg-primary/10 transition-colors"
-                aria-label="Facebook"
-              >
-                <Facebook className="h-6 w-6 text-primary" />
-              </a>
-              <a 
-                href="#" 
-                className="p-3 rounded-full hover:bg-primary/10 transition-colors"
-                aria-label="Twitter"
-              >
-                <Twitter className="h-6 w-6 text-primary" />
               </a>
             </div>
           </div>
