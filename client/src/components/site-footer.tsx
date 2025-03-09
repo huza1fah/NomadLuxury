@@ -17,10 +17,10 @@ export function SiteFooter() {
             <h4 className="font-semibold text-lg mb-6">Contact</h4>
             <ul className="space-y-4">
               <li className="text-muted-foreground hover:text-primary transition-colors">
-                <span className="hover:underline">contact@nomadluxury.travel</span>
+                <span className="hover:underline">info@nomadluxurytravel.co.uk</span>
               </li>
               <li className="text-muted-foreground hover:text-primary transition-colors">
-                <span>+1 (888) 555-0123</span>
+                <span>07881774722</span>
               </li>
               <li className="text-muted-foreground hover:text-primary transition-colors">
                 <span>123 Luxury Lane, Suite 500</span>
