@@ -42,7 +42,7 @@ const testimonials = [
 
 export function TestimonialCarousel() {
   return (
-    <section className="bg-[#a0c4ff] py-24">
+    <section className="bg-[#a0c4ff] py-12">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">
           What Our Travelers Say

@@ -3,7 +3,7 @@ import { Plane, MapPin } from "lucide-react";
 
 export function ServiceTabs() {
   return (
-    <section className="container mx-auto pt-6 pb-24 px-4">
+    <section className="container mx-auto pt-6 pb-12 px-4">
       <div className="w-full max-w-4xl mx-auto">
         <div className="flex flex-col gap-4 max-w-[300px] mx-auto">
           <Button 
