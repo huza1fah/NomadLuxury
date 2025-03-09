@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { BookOpen, MapPin } from "lucide-react";
+import { Plane, MapPin } from "lucide-react";
 
 export function ServiceTabs() {
   return (
@@ -9,7 +9,7 @@ export function ServiceTabs() {
           <Button 
             className="text-lg py-8 px-10 justify-start w-full shadow-md hover:shadow-lg transition-all duration-300 hover:translate-y-[-2px] bg-white text-primary hover:bg-white/90"
           >
-            <BookOpen className="mr-4 h-6 w-6" />
+            <Plane className="mr-4 h-6 w-6" />
             Passport to Freedom
           </Button>
           <Button
