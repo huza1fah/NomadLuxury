@@ -16,19 +16,19 @@ export function SiteFooter() {
           <div>
             <ul className="flex gap-4 justify-center">
               <li className="text-muted-foreground hover:text-primary transition-colors">
-                <a href="mailto:info@nomadluxurytravel.co.uk" className="p-3 rounded-full hover:bg-primary/10 transition-colors">
+                <a href="mailto:info@nomadluxurytravel.co.uk" className="p-3 rounded-full hover:bg-primary/5 transition-colors inline-flex items-center justify-center w-12 h-12">
                   <Mail className="h-6 w-6 text-primary" />
                 </a>
               </li>
               <li className="text-muted-foreground hover:text-primary transition-colors">
-                <a href="tel:07881774722" className="p-3 rounded-full hover:bg-primary/10 transition-colors">
+                <a href="tel:07881774722" className="p-3 rounded-full hover:bg-primary/5 transition-colors inline-flex items-center justify-center w-12 h-12">
                   <Phone className="h-6 w-6 text-primary" />
                 </a>
               </li>
               <li>
                 <a 
                   href="#" 
-                  className="p-3 rounded-full hover:bg-primary/10 transition-colors"
+                  className="p-3 rounded-full hover:bg-primary/5 transition-colors inline-flex items-center justify-center w-12 h-12"
                   aria-label="Instagram"
                 >
                   <Instagram className="h-6 w-6 text-primary" />
