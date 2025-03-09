@@ -1,7 +1,8 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Plane, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 const destinations = [
   {
@@ -19,22 +20,32 @@ const destinations = [
 ];
 
 export function ServiceTabs() {
+  const [activeSection, setActiveSection] = useState<'passport' | 'tailor'>('passport');
+
   return (
     <section className="container mx-auto py-24 px-4">
-      <Tabs defaultValue="passport" className="w-full max-w-4xl mx-auto flex gap-8">
-        <TabsList className="flex flex-col h-auto">
-          <TabsTrigger value="passport" className="text-lg py-6 px-8 justify-start w-full">
+      <div className="w-full max-w-4xl mx-auto flex gap-8">
+        <div className="flex flex-col gap-4 min-w-[200px]">
+          <Button 
+            variant={activeSection === 'passport' ? 'default' : 'outline'}
+            className="text-lg py-6 px-8 justify-start w-full"
+            onClick={() => setActiveSection('passport')}
+          >
             <Plane className="mr-2 h-5 w-5" />
             Passport to Freedom
-          </TabsTrigger>
-          <TabsTrigger value="tailor" className="text-lg py-6 px-8 justify-start w-full">
+          </Button>
+          <Button
+            variant={activeSection === 'tailor' ? 'default' : 'outline'}
+            className="text-lg py-6 px-8 justify-start w-full"
+            onClick={() => setActiveSection('tailor')}
+          >
             <MapPin className="mr-2 h-5 w-5" />
             Tailor Your Trip
-          </TabsTrigger>
-        </TabsList>
+          </Button>
+        </div>
 
         <div className="flex-1">
-          <TabsContent value="passport">
+          {activeSection === 'passport' && (
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -70,9 +81,9 @@ export function ServiceTabs() {
                 </CardContent>
               </Card>
             </motion.div>
-          </TabsContent>
+          )}
 
-          <TabsContent value="tailor">
+          {activeSection === 'tailor' && (
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -109,9 +120,9 @@ export function ServiceTabs() {
                 </CardContent>
               </Card>
             </motion.div>
-          </TabsContent>
+          )}
         </div>
-      </Tabs>
+      </div>
     </section>
   );
 }
