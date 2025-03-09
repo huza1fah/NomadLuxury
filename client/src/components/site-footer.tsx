@@ -5,7 +5,7 @@ export function SiteFooter() {
   return (
     <footer className="bg-background border-t">
       <div className="container mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+        <div className="grid grid-cols-1 gap-12 max-w-2xl mx-auto text-center">
           <div>
             <h3 className="font-bold text-xl mb-6 text-primary">Nomad Luxury Travel</h3>
             <p className="text-muted-foreground leading-relaxed">
@@ -16,13 +16,13 @@ export function SiteFooter() {
           <div>
             <h4 className="font-semibold text-lg mb-6">Contact</h4>
             <ul className="space-y-4">
-              <li className="flex items-center text-muted-foreground hover:text-primary transition-colors">
+              <li className="text-muted-foreground hover:text-primary transition-colors">
                 <span className="hover:underline">contact@nomadluxury.travel</span>
               </li>
-              <li className="flex items-center text-muted-foreground hover:text-primary transition-colors">
+              <li className="text-muted-foreground hover:text-primary transition-colors">
                 <span>+1 (888) 555-0123</span>
               </li>
-              <li className="flex items-center text-muted-foreground hover:text-primary transition-colors">
+              <li className="text-muted-foreground hover:text-primary transition-colors">
                 <span>123 Luxury Lane, Suite 500</span>
               </li>
             </ul>
@@ -30,7 +30,7 @@ export function SiteFooter() {
 
           <div>
             <h4 className="font-semibold text-lg mb-6">Follow Us</h4>
-            <div className="flex gap-4">
+            <div className="flex gap-4 justify-center">
               <a 
                 href="#" 
                 className="p-3 rounded-full hover:bg-primary/10 transition-colors"
@@ -56,7 +56,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <Separator className="mb-8" />
+        <Separator className="my-8 max-w-2xl mx-auto" />
 
         <div className="text-center text-sm text-muted-foreground">
           <p>© {new Date().getFullYear()} Nomad Luxury Travel. All rights reserved.</p>
