@@ -16,10 +16,10 @@ export function LogoSection() {
         transition={{ delay: 0.2, duration: 0.5 }}
         className="relative z-10 text-center"
       >
-        <h1 className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent mb-4">
+        <h1 className="text-6xl md:text-7xl font-tan-ashford text-white mb-4">
           Nomad Luxury Travel
         </h1>
-        <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto px-4">
+        <p className="text-xl md:text-2xl text-white/80 max-w-2xl mx-auto px-4">
           Curating extraordinary journeys for the discerning traveler
         </p>
       </motion.div>
