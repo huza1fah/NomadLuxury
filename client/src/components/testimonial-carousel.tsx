@@ -42,12 +42,12 @@ const testimonials = [
 
 export function TestimonialCarousel() {
   return (
-    <section className="bg-accent/5 py-24">
+    <section className="bg-[#a0c4ff] py-24">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">
           What Our Travelers Say
         </h2>
-        
+
         <Carousel
           opts={{
             align: "start",
@@ -58,14 +58,14 @@ export function TestimonialCarousel() {
           <CarouselContent>
             {testimonials.map((testimonial, index) => (
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                <Card className="mx-2">
+                <Card className="mx-2 bg-white/95">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4 mb-4">
                       <Avatar className="h-12 w-12">
                         <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
                       </Avatar>
                       <div>
-                        <h4 className="font-semibold">{testimonial.name}</h4>
+                        <h4 className="font-semibold text-black">{testimonial.name}</h4>
                         <p className="text-sm text-muted-foreground">
                           {testimonial.role}
                         </p>
@@ -81,14 +81,14 @@ export function TestimonialCarousel() {
                           />
                         ))}
                     </div>
-                    <p className="text-muted-foreground">{testimonial.content}</p>
+                    <p className="text-black">{testimonial.content}</p>
                   </CardContent>
                 </Card>
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="hidden md:flex" />
-          <CarouselNext className="hidden md:flex" />
+          <CarouselPrevious className="hidden md:flex bg-white" />
+          <CarouselNext className="hidden md:flex bg-white" />
         </Carousel>
       </div>
     </section>
