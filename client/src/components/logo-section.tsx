@@ -6,7 +6,7 @@ export function LogoSection() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      className="flex flex-col items-center justify-center min-h-[60vh] bg-[#a0c4ff] relative overflow-hidden"
+      className="flex flex-col items-center justify-center min-h-[50vh] bg-[#a0c4ff] relative overflow-hidden pb-8"
     >
       <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1523467327888-a8a425992901')] bg-cover bg-center opacity-10" />
 
