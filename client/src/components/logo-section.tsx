@@ -19,11 +19,8 @@ export function LogoSection() {
         <img 
           src="/assets/nomad-logo-white.png"
           alt="Nomad Luxury Travel"
-          className="w-64 md:w-96 mx-auto mb-8"
+          className="w-64 md:w-96 mx-auto"
         />
-        <p className="text-xl md:text-2xl text-white/80 max-w-2xl mx-auto px-4">
-          Curating extraordinary journeys for the discerning traveler
-        </p>
       </motion.div>
     </motion.section>
   );
