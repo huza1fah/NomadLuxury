@@ -17,7 +17,7 @@ export function LogoSection() {
         className="relative z-10 text-center"
       >
         <img 
-          src="/assets/nomad-logo.png"
+          src="/assets/nomad-logo-white.png"
           alt="Nomad Luxury Travel"
           className="w-64 md:w-96 mx-auto mb-8"
         />
