@@ -1,5 +1,5 @@
 import { Separator } from "@/components/ui/separator";
-import { Instagram } from "lucide-react";
+import { Instagram, Mail, Phone } from "lucide-react";
 
 export function SiteFooter() {
   return (
@@ -17,10 +17,16 @@ export function SiteFooter() {
             <h4 className="font-semibold text-lg mb-4">Contact</h4>
             <ul className="space-y-4">
               <li className="text-muted-foreground hover:text-primary transition-colors">
-                <span className="hover:underline">info@nomadluxurytravel.co.uk</span>
+                <a href="mailto:info@nomadluxurytravel.co.uk" className="flex items-center justify-center gap-2 hover:underline">
+                  <Mail className="h-5 w-5" />
+                  <span>info@nomadluxurytravel.co.uk</span>
+                </a>
               </li>
               <li className="text-muted-foreground hover:text-primary transition-colors">
-                <span>07881774722</span>
+                <a href="tel:07881774722" className="flex items-center justify-center gap-2">
+                  <Phone className="h-5 w-5" />
+                  <span>07881774722</span>
+                </a>
               </li>
             </ul>
           </div>
