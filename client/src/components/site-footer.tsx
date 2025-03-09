@@ -15,7 +15,6 @@ export function SiteFooter() {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <h4 className="font-semibold text-lg mb-4">Contact</h4>
               <ul className="space-y-4">
                 <li className="text-muted-foreground hover:text-primary transition-colors">
                   <span className="hover:underline">info@nomadluxurytravel.co.uk</span>
@@ -27,7 +26,6 @@ export function SiteFooter() {
             </div>
 
             <div>
-              <h4 className="font-semibold text-lg mb-4">Follow Us</h4>
               <div className="flex gap-4 justify-center">
                 <a 
                   href="#" 
