@@ -10,7 +10,7 @@ export function SiteFooter() {
             <img 
               src="./assets/NOMAD LUXURY TRAVEL (4).png"
               alt="Nomad Luxury Travel"
-              className="w-40 mx-auto mb-4"
+              className="w-64 mx-auto mb-4"
             />
             <p className="text-muted-foreground leading-relaxed">
               Crafting extraordinary journeys for the discerning traveler since 2010. Experience luxury travel redefined.
