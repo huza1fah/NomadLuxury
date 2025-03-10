@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Plane, Palmtree, Mountain, Building2, Sailboat, MapPin } from "lucide-react";
 
 export function LogoSection() {
   return (
@@ -17,10 +18,24 @@ export function LogoSection() {
         className="relative z-10 text-center"
       >
         <img 
-          src="/assets/nomad-logo-white.png"
+          src="/assets/NOMAD LUXURY TRAVEL.png"
           alt="Nomad Luxury Travel"
           className="w-64 md:w-96 mx-auto"
         />
+
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+          className="flex justify-center gap-8 mt-8"
+        >
+          <Plane className="h-8 w-8 text-white" />
+          <Palmtree className="h-8 w-8 text-white" />
+          <Mountain className="h-8 w-8 text-white" />
+          <Building2 className="h-8 w-8 text-white" />
+          <Sailboat className="h-8 w-8 text-white" />
+          <MapPin className="h-8 w-8 text-white" />
+        </motion.div>
       </motion.div>
     </motion.section>
   );
