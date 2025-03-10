@@ -58,8 +58,8 @@ export function TestimonialCarousel() {
           <CarouselContent>
             {testimonials.map((testimonial, index) => (
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                <Card className="mx-2 bg-white/95">
-                  <CardContent className="p-6">
+                <Card className="mx-2 bg-white/95 h-full">
+                  <CardContent className="p-6 flex flex-col h-full">
                     <div className="flex items-center gap-4 mb-4">
                       <Avatar className="h-12 w-12">
                         <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
@@ -71,7 +71,7 @@ export function TestimonialCarousel() {
                         </p>
                       </div>
                     </div>
-                    <div className="flex gap-1 mb-3">
+                    <div className="flex justify-center gap-1 mb-3">
                       {Array(5)
                         .fill(null)
                         .map((_, i) => (
@@ -81,7 +81,7 @@ export function TestimonialCarousel() {
                           />
                         ))}
                     </div>
-                    <p className="text-black">{testimonial.content}</p>
+                    <p className="text-black flex-grow">{testimonial.content}</p>
                   </CardContent>
                 </Card>
               </CarouselItem>
