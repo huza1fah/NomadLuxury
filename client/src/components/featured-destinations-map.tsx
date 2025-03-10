@@ -42,6 +42,23 @@ export function FeaturedDestinationsMap() {
     zoom: 1.5
   });
 
+  const mapboxToken = import.meta.env.VITE_MAPBOX_TOKEN;
+
+  if (!mapboxToken) {
+    return (
+      <div className="py-12 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
+            Featured Destinations
+          </h2>
+          <div className="h-[500px] w-full rounded-xl overflow-hidden shadow-lg flex items-center justify-center bg-gray-100">
+            <p className="text-gray-500">Map configuration is missing. Please check your environment variables.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <section className="py-12 bg-white">
       <div className="container mx-auto px-4">
@@ -54,7 +71,7 @@ export function FeaturedDestinationsMap() {
             {...viewState}
             onMove={evt => setViewState(evt.viewState)}
             mapStyle="mapbox://styles/mapbox/light-v11"
-            mapboxAccessToken={import.meta.env.VITE_MAPBOX_TOKEN}
+            mapboxAccessToken={mapboxToken}
           >
             {DESTINATIONS.map((destination) => (
               <Marker
