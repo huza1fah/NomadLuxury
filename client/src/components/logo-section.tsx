@@ -10,7 +10,6 @@ export function LogoSection() {
       className="flex flex-col items-center justify-center min-h-[40vh] bg-[#a0c4ff] relative overflow-hidden pb-4"
     >
       <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1523467327888-a8a425992901')] bg-cover bg-center opacity-30" /> {/* Added opacity and adjusted background image */}
-      <div className="absolute inset-0 bg-white/50"></div> {/* Added background overlay */}
 
       <motion.div
         initial={{ scale: 0.8 }}
