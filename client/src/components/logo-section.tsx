@@ -9,7 +9,7 @@ export function LogoSection() {
       transition={{ duration: 0.8 }}
       className="flex flex-col items-center justify-center min-h-[40vh] bg-[#a0c4ff] relative overflow-hidden pb-4"
     >
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1523467327888-a8a425992901')] bg-cover bg-center opacity-30" /> {/* Added opacity and adjusted background image */}
+      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1523467327888-a8a425992901')] bg-cover bg-center opacity-30" />
 
       <motion.div
         initial={{ scale: 0.8 }}
@@ -27,7 +27,7 @@ export function LogoSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.5 }}
-          className="flex justify-center gap-8 mt-8"
+          className="flex justify-center gap-4 mt-8 mb-6"
         >
           <Plane className="h-8 w-8 text-white" />
           <Palmtree className="h-8 w-8 text-white" />
