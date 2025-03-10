@@ -7,7 +7,11 @@ export function SiteFooter() {
       <div className="container mx-auto px-6 py-8">
         <div className="grid grid-cols-1 gap-8 max-w-xl mx-auto text-center">
           <div>
-            <h3 className="font-bold text-xl mb-4 text-primary">Nomad Luxury Travel</h3>
+            <img 
+              src="/assets/NOMAD LUXURY TRAVEL (3).png"
+              alt="Nomad Luxury Travel"
+              className="w-32 mx-auto mb-4"
+            />
             <p className="text-muted-foreground leading-relaxed">
               Crafting extraordinary journeys for the discerning traveler since 2010. Experience luxury travel redefined.
             </p>
