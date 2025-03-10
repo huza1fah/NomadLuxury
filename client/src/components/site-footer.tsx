@@ -8,7 +8,7 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 gap-8 max-w-xl mx-auto text-center">
           <div>
             <img 
-              src="./assets/NOMAD LUXURY TRAVEL (4).png"
+              src="/assets/Untitled design.png"
               alt="Nomad Luxury Travel"
               className="w-64 mx-auto mb-4"
             />
