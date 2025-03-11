@@ -28,8 +28,12 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { MapPin } from "lucide-react"
+import { MapPin, Plus, Minus, Calendar } from "lucide-react"
 import { useState } from "react"
+import { Calendar as CalendarComponent } from "@/components/ui/calendar"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { cn } from "@/lib/utils"
+import { format } from "date-fns"
 
 const formSchema = z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),
@@ -38,16 +42,15 @@ const formSchema = z.object({
   referralSource: z.string().min(1, "Please let us know how you found us"),
   contactPreference: z.string().min(1, "Please specify your contact preference"),
   destination: z.string().min(1, "Please specify your desired destination"),
-  travelDates: z.string().min(1, "Please specify your travel dates"),
-  duration: z.string().min(1, "Please specify the duration"),
+  departureDate: z.date(),
+  returnDate: z.date(),
   departureAirport: z.string().min(1, "Please specify departure airport"),
   reasonForTravel: z.string().min(1, "Please specify reason for travel"),
   travelers: z.object({
-    adults: z.string().min(1, "Please specify number of adults"),
-    children: z.string(),
+    adults: z.number().min(1, "At least 1 adult is required"),
+    children: z.number(),
     childrenAges: z.string(),
   }),
-  groupDetails: z.string(),
   ratingPreference: z.string(),
   preferredHotel: z.string(),
   budget: z.string().min(1, "Please specify your budget"),
@@ -63,14 +66,9 @@ const steps = [
     fields: ["fullName", "contactNumber", "email", "referralSource", "contactPreference"]
   },
   {
-    title: "Travel Details",
-    description: "Tell us about your dream destination",
-    fields: ["destination", "travelDates", "duration", "departureAirport", "reasonForTravel"]
-  },
-  {
-    title: "Group Information",
-    description: "Who will be joining you on this journey?",
-    fields: ["travelers", "groupDetails"]
+    title: "Travel & Group Details",
+    description: "Plan your perfect getaway",
+    fields: ["destination", "departureDate", "returnDate", "departureAirport", "reasonForTravel", "travelers"]
   },
   {
     title: "Accommodation Preferences",
@@ -95,16 +93,15 @@ export function TailorTripDialog() {
       referralSource: "",
       contactPreference: "",
       destination: "",
-      travelDates: "",
-      duration: "",
+      departureDate: new Date(),
+      returnDate: new Date(),
       departureAirport: "",
       reasonForTravel: "",
       travelers: {
-        adults: "",
-        children: "",
+        adults: 1,
+        children: 0,
         childrenAges: "",
       },
-      groupDetails: "",
       ratingPreference: "",
       preferredHotel: "",
       budget: "",
@@ -128,47 +125,147 @@ export function TailorTripDialog() {
     return fields.map((field) => {
       if (field === "travelers") {
         return (
-          <div key={field} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="travelers.adults"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-white">Number of Adults</FormLabel>
-                  <FormControl>
-                    <Input type="number" {...field} className="bg-white border-white/20 text-[#a0c4ff] placeholder:text-[#a0c4ff]/50" />
-                  </FormControl>
-                  <FormMessage className="text-white" />
-                </FormItem>
+          <div key={field} className="space-y-6">
+            <FormLabel className="text-white text-lg">Travelers</FormLabel>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between bg-white rounded-lg p-4">
+                <div>
+                  <h4 className="font-medium text-[#a0c4ff]">Adults</h4>
+                  <p className="text-sm text-[#a0c4ff]/70">Age 12+</p>
+                </div>
+                <div className="flex items-center gap-4">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    className="h-8 w-8 rounded-full"
+                    onClick={() => {
+                      const currentAdults = form.getValues("travelers.adults")
+                      if (currentAdults > 1) {
+                        form.setValue("travelers.adults", currentAdults - 1)
+                      }
+                    }}
+                  >
+                    <Minus className="h-4 w-4" />
+                  </Button>
+                  <span className="text-[#a0c4ff] w-8 text-center">{form.getValues("travelers.adults")}</span>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    className="h-8 w-8 rounded-full"
+                    onClick={() => {
+                      const currentAdults = form.getValues("travelers.adults")
+                      form.setValue("travelers.adults", currentAdults + 1)
+                    }}
+                  >
+                    <Plus className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between bg-white rounded-lg p-4">
+                <div>
+                  <h4 className="font-medium text-[#a0c4ff]">Children</h4>
+                  <p className="text-sm text-[#a0c4ff]/70">Age 2-11</p>
+                </div>
+                <div className="flex items-center gap-4">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    className="h-8 w-8 rounded-full"
+                    onClick={() => {
+                      const currentChildren = form.getValues("travelers.children")
+                      if (currentChildren > 0) {
+                        form.setValue("travelers.children", currentChildren - 1)
+                      }
+                    }}
+                  >
+                    <Minus className="h-4 w-4" />
+                  </Button>
+                  <span className="text-[#a0c4ff] w-8 text-center">{form.getValues("travelers.children")}</span>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    className="h-8 w-8 rounded-full"
+                    onClick={() => {
+                      const currentChildren = form.getValues("travelers.children")
+                      form.setValue("travelers.children", currentChildren + 1)
+                    }}
+                  >
+                    <Plus className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+
+              {form.getValues("travelers.children") > 0 && (
+                <FormField
+                  control={form.control}
+                  name="travelers.childrenAges"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-white">Children's ages at time of travel</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. 5, 7, 12" {...field} className="bg-white border-white/20 text-[#a0c4ff] placeholder:text-[#a0c4ff]/50" />
+                      </FormControl>
+                      <FormMessage className="text-white" />
+                    </FormItem>
+                  )}
+                />
               )}
-            />
-            <FormField
-              control={form.control}
-              name="travelers.children"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-white">Number of Children</FormLabel>
-                  <FormControl>
-                    <Input type="number" {...field} className="bg-white border-white/20 text-[#a0c4ff] placeholder:text-[#a0c4ff]/50" />
-                  </FormControl>
-                  <FormMessage className="text-white" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="travelers.childrenAges"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-white">Children's ages</FormLabel>
-                  <FormControl>
-                    <Input placeholder="e.g. 5, 7, 12" {...field} className="bg-white border-white/20 text-[#a0c4ff] placeholder:text-[#a0c4ff]/50" />
-                  </FormControl>
-                  <FormMessage className="text-white" />
-                </FormItem>
-              )}
-            />
+            </div>
           </div>
+        )
+      }
+
+      if (field === "departureDate" || field === "returnDate") {
+        return (
+          <FormField
+            key={field}
+            control={form.control}
+            name={field}
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel className="text-white">
+                  {field.name === "departureDate" ? "Departure Date" : "Return Date"}
+                </FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "w-full pl-3 text-left font-normal bg-white text-[#a0c4ff]",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {field.value ? (
+                          format(field.value, "PPP")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                        <Calendar className="ml-auto h-4 w-4 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <CalendarComponent
+                      mode="single"
+                      selected={field.value}
+                      onSelect={field.onChange}
+                      disabled={(date) =>
+                        date < new Date() || (field.name === "returnDate" && date < form.getValues("departureDate"))
+                      }
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+                <FormMessage className="text-white" />
+              </FormItem>
+            )}
+          />
         )
       }
 
