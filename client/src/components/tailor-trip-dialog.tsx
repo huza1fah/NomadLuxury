@@ -64,22 +64,22 @@ const steps = [
   },
   {
     title: "Travel Details",
-    description: "Tell us about your desired destination",
+    description: "Tell us about your dream destination",
     fields: ["destination", "travelDates", "duration", "departureAirport", "reasonForTravel"]
   },
   {
     title: "Group Information",
-    description: "Who will be traveling with you?",
+    description: "Who will be joining you on this journey?",
     fields: ["travelers", "groupDetails"]
   },
   {
     title: "Accommodation Preferences",
-    description: "Help us find your perfect stay",
+    description: "Help us find your perfect luxury stay",
     fields: ["ratingPreference", "preferredHotel", "budget", "boardBasis"]
   },
   {
     title: "Additional Information",
-    description: "Any special requests or requirements?",
+    description: "Any special requests to make your trip extraordinary?",
     fields: ["specialRequests", "additionalInfo"]
   }
 ]
@@ -296,23 +296,37 @@ export function TailorTripDialog() {
         <ScrollArea className="h-full max-h-[90vh]">
           <div className="p-6">
             <DialogHeader>
-              <DialogTitle className="text-2xl font-bold text-center mb-2 text-white">{currentStep.title}</DialogTitle>
-              <DialogDescription className="text-center text-white/80">
+              <DialogTitle className="text-3xl font-bold text-center mb-2 text-white">{currentStep.title}</DialogTitle>
+              <DialogDescription className="text-center text-white/80 text-lg">
                 {currentStep.description}
               </DialogDescription>
             </DialogHeader>
 
-            {/* Progress indicator */}
-            <div className="w-full bg-white/20 rounded-full h-2.5 mb-6 mt-4">
+            {/* Step counter */}
+            <div className="flex items-center justify-center gap-2 mt-4 mb-6">
+              {steps.map((_, index) => (
+                <div
+                  key={index}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === step ? 'bg-white' : 'bg-white/20'
+                  }`}
+                />
+              ))}
+            </div>
+
+            {/* Progress bar */}
+            <div className="w-full bg-white/20 rounded-full h-1.5 mb-8">
               <div
-                className="bg-white h-2.5 rounded-full transition-all duration-300"
+                className="bg-white h-1.5 rounded-full transition-all duration-500"
                 style={{ width: `${((step + 1) / steps.length) * 100}%` }}
-              ></div>
+              />
             </div>
 
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 mt-6">
-                {renderFormFields()}
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <div className="bg-white/10 p-6 rounded-lg backdrop-blur-sm">
+                  {renderFormFields()}
+                </div>
 
                 <div className="flex justify-between gap-4 mt-8">
                   <Button
