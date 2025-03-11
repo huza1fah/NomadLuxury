@@ -13,14 +13,14 @@ export function SiteHeader() {
             {user.isAdmin && (
               <Link href="/admin">
                 <Button 
-                  className="bg-white text-[#4F46E5] font-semibold px-6 py-2 rounded-md hover:shadow-md transition-shadow duration-200 text-sm"
+                  className="bg-white text-[#4F46E5] font-semibold px-6 py-2 rounded-md text-sm"
                 >
                   Admin Dashboard
                 </Button>
               </Link>
             )}
             <Button 
-              className="bg-white text-[#4F46E5] font-semibold px-6 py-2 rounded-md hover:shadow-md transition-shadow duration-200 text-sm"
+              className="bg-white text-[#4F46E5] font-semibold px-6 py-2 rounded-md text-sm"
               onClick={() => logoutMutation.mutate()}
             >
               Logout
@@ -29,7 +29,7 @@ export function SiteHeader() {
         ) : (
           <Link href="/auth">
             <Button 
-              className="bg-white text-[#4F46E5] font-semibold px-6 py-2 rounded-md hover:shadow-md transition-shadow duration-200 text-sm"
+              className="bg-white text-[#4F46E5] font-semibold px-6 py-2 rounded-md text-sm"
             >
               Login
             </Button>
