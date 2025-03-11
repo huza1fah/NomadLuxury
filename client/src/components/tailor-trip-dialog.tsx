@@ -134,11 +134,11 @@ export function TailorTripDialog() {
               name="travelers.adults"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-white">Number of Adults</FormLabel>
+                  <FormLabel className="text-[#a0c4ff]">Number of Adults</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} className="bg-white/10 border-white/20 text-white placeholder:text-white/50" />
+                    <Input type="number" {...field} className="bg-white border-white/20 text-[#a0c4ff] placeholder:text-[#a0c4ff]/50" />
                   </FormControl>
-                  <FormMessage className="text-white" />
+                  <FormMessage className="text-[#a0c4ff]" />
                 </FormItem>
               )}
             />
@@ -147,11 +147,11 @@ export function TailorTripDialog() {
               name="travelers.children"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-white">Number of Children</FormLabel>
+                  <FormLabel className="text-[#a0c4ff]">Number of Children</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} className="bg-white/10 border-white/20 text-white placeholder:text-white/50" />
+                    <Input type="number" {...field} className="bg-white border-white/20 text-[#a0c4ff] placeholder:text-[#a0c4ff]/50" />
                   </FormControl>
-                  <FormMessage className="text-white" />
+                  <FormMessage className="text-[#a0c4ff]" />
                 </FormItem>
               )}
             />
@@ -160,11 +160,11 @@ export function TailorTripDialog() {
               name="travelers.childrenAges"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-white">Children's ages</FormLabel>
+                  <FormLabel className="text-[#a0c4ff]">Children's ages</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g. 5, 7, 12" {...field} className="bg-white/10 border-white/20 text-white placeholder:text-white/50" />
+                    <Input placeholder="e.g. 5, 7, 12" {...field} className="bg-white border-white/20 text-[#a0c4ff] placeholder:text-[#a0c4ff]/50" />
                   </FormControl>
-                  <FormMessage className="text-white" />
+                  <FormMessage className="text-[#a0c4ff]" />
                 </FormItem>
               )}
             />
@@ -180,11 +180,11 @@ export function TailorTripDialog() {
             name={field}
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-white">Rating Preference</FormLabel>
+                <FormLabel className="text-[#a0c4ff]">Rating Preference</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger className="bg-white/10 border-white/20 text-white">
-                      <SelectValue placeholder="Select hotel rating" className="text-white/50" />
+                    <SelectTrigger className="bg-white border-white/20 text-[#a0c4ff]">
+                      <SelectValue placeholder="Select hotel rating" className="text-[#a0c4ff]/50" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -194,7 +194,7 @@ export function TailorTripDialog() {
                     <SelectItem value="5plus">5 Star Plus</SelectItem>
                   </SelectContent>
                 </Select>
-                <FormMessage className="text-white" />
+                <FormMessage className="text-[#a0c4ff]" />
               </FormItem>
             )}
           />
@@ -209,11 +209,11 @@ export function TailorTripDialog() {
             name={field}
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-white">Board Basis Preference</FormLabel>
+                <FormLabel className="text-[#a0c4ff]">Board Basis Preference</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger className="bg-white/10 border-white/20 text-white">
-                      <SelectValue placeholder="Select board basis" className="text-white/50" />
+                    <SelectTrigger className="bg-white border-white/20 text-[#a0c4ff]">
+                      <SelectValue placeholder="Select board basis" className="text-[#a0c4ff]/50" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -224,7 +224,7 @@ export function TailorTripDialog() {
                     <SelectItem value="ai">All Inclusive</SelectItem>
                   </SelectContent>
                 </Select>
-                <FormMessage className="text-white" />
+                <FormMessage className="text-[#a0c4ff]" />
               </FormItem>
             )}
           />
@@ -239,21 +239,21 @@ export function TailorTripDialog() {
             name={field}
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-white">
+                <FormLabel className="text-[#a0c4ff]">
                   {field.name === "specialRequests" ? "Special Requests" : "Additional Information"}
                 </FormLabel>
                 <FormControl>
-                  <Textarea 
+                  <Textarea
                     placeholder={
-                      field.name === "specialRequests" 
+                      field.name === "specialRequests"
                         ? "e.g. room type/view, extras, occasion"
                         : "Any other information that can help us build the best trip for you"
                     }
-                    className="min-h-[100px] bg-white/10 border-white/20 text-white placeholder:text-white/50"
-                    {...field} 
+                    className="min-h-[100px] bg-white border-white/20 text-[#a0c4ff] placeholder:text-[#a0c4ff]/50"
+                    {...field}
                   />
                 </FormControl>
-                <FormMessage className="text-white" />
+                <FormMessage className="text-[#a0c4ff]" />
               </FormItem>
             )}
           />
@@ -267,16 +267,16 @@ export function TailorTripDialog() {
           name={field}
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-white">
+              <FormLabel className="text-[#a0c4ff]">
                 {field.name
                   .split(/(?=[A-Z])/)
-                  .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
                   .join(" ")}
               </FormLabel>
               <FormControl>
-                <Input {...field} className="bg-white/10 border-white/20 text-white placeholder:text-white/50" />
+                <Input {...field} className="bg-white border-white/20 text-[#a0c4ff] placeholder:text-[#a0c4ff]/50" />
               </FormControl>
-              <FormMessage className="text-white" />
+              <FormMessage className="text-[#a0c4ff]" />
             </FormItem>
           )}
         />
@@ -304,8 +304,8 @@ export function TailorTripDialog() {
 
             {/* Progress indicator */}
             <div className="w-full bg-white/20 rounded-full h-2.5 mb-6 mt-4">
-              <div 
-                className="bg-white h-2.5 rounded-full transition-all duration-300" 
+              <div
+                className="bg-white h-2.5 rounded-full transition-all duration-300"
                 style={{ width: `${((step + 1) / steps.length) * 100}%` }}
               ></div>
             </div>
