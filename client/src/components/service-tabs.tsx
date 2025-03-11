@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Plane, MapPin } from "lucide-react";
-import { Link } from "wouter";
+import { Plane } from "lucide-react";
+import { TailorTripDialog } from "./tailor-trip-dialog";
 
 export function ServiceTabs() {
   return (
@@ -13,14 +13,7 @@ export function ServiceTabs() {
             <Plane className="mr-4 h-6 w-6" />
             Passport to Freedom
           </Button>
-          <Link href="/tailor-trip">
-            <Button
-              className="text-lg py-8 px-10 justify-start w-full shadow-md hover:shadow-lg transition-all duration-300 hover:translate-y-[-2px] bg-white text-primary hover:bg-white/90"
-            >
-              <MapPin className="mr-4 h-6 w-6" />
-              Tailor Your Trip
-            </Button>
-          </Link>
+          <TailorTripDialog />
         </div>
       </div>
     </section>
