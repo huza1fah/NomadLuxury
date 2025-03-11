@@ -12,14 +12,15 @@ export function SiteHeader() {
           <div className="flex items-center gap-4">
             {user.isAdmin && (
               <Link href="/admin">
-                <Button variant="ghost" className="text-primary">
+                <Button 
+                  className="bg-gradient-to-r from-[#4F46E5] to-[#06B6D4] text-white font-semibold px-6 py-2 rounded-full hover:shadow-lg transform hover:-translate-y-0.5 transition duration-200 text-sm"
+                >
                   Admin Dashboard
                 </Button>
               </Link>
             )}
             <Button 
-              variant="ghost"
-              className="text-primary"
+              className="bg-gradient-to-r from-[#4F46E5] to-[#06B6D4] text-white font-semibold px-6 py-2 rounded-full hover:shadow-lg transform hover:-translate-y-0.5 transition duration-200 text-sm"
               onClick={() => logoutMutation.mutate()}
             >
               Logout
@@ -27,7 +28,9 @@ export function SiteHeader() {
           </div>
         ) : (
           <Link href="/auth">
-            <Button variant="ghost" className="text-primary">
+            <Button 
+              className="bg-gradient-to-r from-[#4F46E5] to-[#06B6D4] text-white font-semibold px-6 py-2 rounded-full hover:shadow-lg transform hover:-translate-y-0.5 transition duration-200 text-sm"
+            >
               Login
             </Button>
           </Link>
