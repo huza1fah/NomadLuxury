@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/select"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { MapPin } from "lucide-react"
+import { useState } from "react"
 
 const formSchema = z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),
@@ -55,7 +56,36 @@ const formSchema = z.object({
   additionalInfo: z.string(),
 })
 
+const steps = [
+  {
+    title: "Personal Information",
+    description: "Let's start with your contact details",
+    fields: ["fullName", "contactNumber", "email", "referralSource", "contactPreference"]
+  },
+  {
+    title: "Travel Details",
+    description: "Tell us about your desired destination",
+    fields: ["destination", "travelDates", "duration", "departureAirport", "reasonForTravel"]
+  },
+  {
+    title: "Group Information",
+    description: "Who will be traveling with you?",
+    fields: ["travelers", "groupDetails"]
+  },
+  {
+    title: "Accommodation Preferences",
+    description: "Help us find your perfect stay",
+    fields: ["ratingPreference", "preferredHotel", "budget", "boardBasis"]
+  },
+  {
+    title: "Additional Information",
+    description: "Any special requests or requirements?",
+    fields: ["specialRequests", "additionalInfo"]
+  }
+]
+
 export function TailorTripDialog() {
+  const [step, setStep] = useState(0)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -89,6 +119,171 @@ export function TailorTripDialog() {
     // Here we'll add the submission logic later
   }
 
+  const currentStep = steps[step]
+  const isLastStep = step === steps.length - 1
+
+  const renderFormFields = () => {
+    const fields = currentStep.fields
+
+    return fields.map((field) => {
+      if (field === "travelers") {
+        return (
+          <div key={field} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="travelers.adults"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Number of Adults</FormLabel>
+                  <FormControl>
+                    <Input type="number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="travelers.children"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Number of Children</FormLabel>
+                  <FormControl>
+                    <Input type="number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="travelers.childrenAges"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Children's ages</FormLabel>
+                  <FormControl>
+                    <Input placeholder="e.g. 5, 7, 12" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        )
+      }
+
+      if (field === "ratingPreference") {
+        return (
+          <FormField
+            key={field}
+            control={form.control}
+            name={field}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Rating Preference</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select hotel rating" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="3">3 Star</SelectItem>
+                    <SelectItem value="4">4 Star</SelectItem>
+                    <SelectItem value="5">5 Star</SelectItem>
+                    <SelectItem value="5plus">5 Star Plus</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )
+      }
+
+      if (field === "boardBasis") {
+        return (
+          <FormField
+            key={field}
+            control={form.control}
+            name={field}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Board Basis Preference</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select board basis" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="room_only">Room Only</SelectItem>
+                    <SelectItem value="bb">Bed & Breakfast</SelectItem>
+                    <SelectItem value="hb">Half Board</SelectItem>
+                    <SelectItem value="fb">Full Board</SelectItem>
+                    <SelectItem value="ai">All Inclusive</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )
+      }
+
+      if (field === "specialRequests" || field === "additionalInfo") {
+        return (
+          <FormField
+            key={field}
+            control={form.control}
+            name={field}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {field.name === "specialRequests" ? "Special Requests" : "Additional Information"}
+                </FormLabel>
+                <FormControl>
+                  <Textarea 
+                    placeholder={
+                      field.name === "specialRequests" 
+                        ? "e.g. room type/view, extras, occasion"
+                        : "Any other information that can help us build the best trip for you"
+                    }
+                    className="min-h-[100px]"
+                    {...field} 
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )
+      }
+
+      return (
+        <FormField
+          key={field}
+          control={form.control}
+          name={field}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>
+                {field.name
+                  .split(/(?=[A-Z])/)
+                  .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(" ")}
+              </FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      )
+    })
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -101,338 +296,40 @@ export function TailorTripDialog() {
         <ScrollArea className="h-full max-h-[90vh]">
           <div className="p-6">
             <DialogHeader>
-              <DialogTitle className="text-2xl font-bold text-center mb-2">Tailor Your Trip</DialogTitle>
+              <DialogTitle className="text-2xl font-bold text-center mb-2">{currentStep.title}</DialogTitle>
               <DialogDescription className="text-center text-muted-foreground">
-                Let us create your perfect luxury travel experience
+                {currentStep.description}
               </DialogDescription>
             </DialogHeader>
 
+            {/* Progress indicator */}
+            <div className="w-full bg-gray-200 rounded-full h-2.5 mb-6 mt-4">
+              <div 
+                className="bg-primary h-2.5 rounded-full transition-all duration-300" 
+                style={{ width: `${((step + 1) / steps.length) * 100}%` }}
+              ></div>
+            </div>
+
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 mt-6">
-                <FormField
-                  control={form.control}
-                  name="fullName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Full Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Enter your full name" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                {renderFormFields()}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <FormField
-                    control={form.control}
-                    name="contactNumber"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Contact Number</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Enter your contact number" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email Address</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Enter your email address" type="email" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                <div className="flex justify-between gap-4 mt-8">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setStep(step - 1)}
+                    disabled={step === 0}
+                  >
+                    Previous
+                  </Button>
+                  <Button
+                    type={isLastStep ? "submit" : "button"}
+                    onClick={() => !isLastStep && setStep(step + 1)}
+                  >
+                    {isLastStep ? "Submit Enquiry" : "Next Step"}
+                  </Button>
                 </div>
-
-                <FormField
-                  control={form.control}
-                  name="referralSource"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Where did you hear about us?</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Please state who via if applicable" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="contactPreference"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Best time to contact you and preferred method</FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g. Weekday afternoons via phone" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <FormField
-                    control={form.control}
-                    name="destination"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Destination</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Where would you like to go?" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="travelDates"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Travel Dates</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Please state if flexible" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <FormField
-                    control={form.control}
-                    name="duration"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Duration (total number of nights)</FormLabel>
-                        <FormControl>
-                          <Input placeholder="How many nights?" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="departureAirport"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Departure Airport</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Please list if more than one option" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <FormField
-                  control={form.control}
-                  name="reasonForTravel"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Reason for travel</FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g. family holiday, anniversary, birthday, business" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <FormField
-                    control={form.control}
-                    name="travelers.adults"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Number of Adults</FormLabel>
-                        <FormControl>
-                          <Input type="number" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="travelers.children"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Number of Children</FormLabel>
-                        <FormControl>
-                          <Input type="number" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="travelers.childrenAges"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Children's ages</FormLabel>
-                        <FormControl>
-                          <Input placeholder="e.g. 5, 7, 12" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <FormField
-                  control={form.control}
-                  name="groupDetails"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Group Details</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Please state how many in each room if traveling as a group" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <FormField
-                    control={form.control}
-                    name="ratingPreference"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Rating Preference</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select hotel rating" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="3">3 Star</SelectItem>
-                            <SelectItem value="4">4 Star</SelectItem>
-                            <SelectItem value="5">5 Star</SelectItem>
-                            <SelectItem value="5plus">5 Star Plus</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="preferredHotel"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Preferred Hotel Choice</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Do you have a specific hotel in mind?" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <FormField
-                    control={form.control}
-                    name="budget"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Allocated Expenditure</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Please state your budget for this trip" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="boardBasis"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Board Basis Preference</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select board basis" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="room_only">Room Only</SelectItem>
-                            <SelectItem value="bb">Bed & Breakfast</SelectItem>
-                            <SelectItem value="hb">Half Board</SelectItem>
-                            <SelectItem value="fb">Full Board</SelectItem>
-                            <SelectItem value="ai">All Inclusive</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <FormField
-                  control={form.control}
-                  name="specialRequests"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Special Requests</FormLabel>
-                      <FormControl>
-                        <Textarea 
-                          placeholder="e.g. room type/view, extras, occasion" 
-                          className="min-h-[100px]"
-                          {...field} 
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="additionalInfo"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Additional Information</FormLabel>
-                      <FormControl>
-                        <Textarea 
-                          placeholder="Any other information that can help us build the best trip for you" 
-                          className="min-h-[100px]"
-                          {...field} 
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
-                  Submit Enquiry
-                </Button>
               </form>
             </Form>
           </div>
