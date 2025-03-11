@@ -13,14 +13,14 @@ export function SiteHeader() {
             {user.isAdmin && (
               <Link href="/admin">
                 <Button 
-                  className="bg-gradient-to-r from-[#4F46E5] to-[#06B6D4] text-white font-semibold px-6 py-2 rounded-full hover:shadow-lg transform hover:-translate-y-0.5 transition duration-200 text-sm"
+                  className="bg-[#4F46E5] text-white font-semibold px-6 py-2 rounded-md hover:shadow-lg transform hover:-translate-y-0.5 transition duration-200 text-sm"
                 >
                   Admin Dashboard
                 </Button>
               </Link>
             )}
             <Button 
-              className="bg-gradient-to-r from-[#4F46E5] to-[#06B6D4] text-white font-semibold px-6 py-2 rounded-full hover:shadow-lg transform hover:-translate-y-0.5 transition duration-200 text-sm"
+              className="bg-[#4F46E5] text-white font-semibold px-6 py-2 rounded-md hover:shadow-lg transform hover:-translate-y-0.5 transition duration-200 text-sm"
               onClick={() => logoutMutation.mutate()}
             >
               Logout
@@ -29,7 +29,7 @@ export function SiteHeader() {
         ) : (
           <Link href="/auth">
             <Button 
-              className="bg-gradient-to-r from-[#4F46E5] to-[#06B6D4] text-white font-semibold px-6 py-2 rounded-full hover:shadow-lg transform hover:-translate-y-0.5 transition duration-200 text-sm"
+              className="bg-[#4F46E5] text-white font-semibold px-6 py-2 rounded-md hover:shadow-lg transform hover:-translate-y-0.5 transition duration-200 text-sm"
             >
               Login
             </Button>
