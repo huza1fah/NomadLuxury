@@ -13,7 +13,7 @@ export function SiteFooter() {
               className="w-32 mx-auto mb-4"
             />
             <p className="text-muted-foreground leading-relaxed">
-              Crafting extraordinary journeys for the discerning traveler since 2022. Experience luxury travel redefined.
+              Crafting extraordinary journeys for the discerning traveler since 2010. Experience luxury travel redefined.
             </p>
           </div>
 
