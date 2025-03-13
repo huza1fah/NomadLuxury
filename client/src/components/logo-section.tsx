@@ -29,12 +29,12 @@ export function LogoSection() {
           transition={{ delay: 0.5, duration: 0.5 }}
           className="flex justify-center gap-4 mt-8 mb-6"
         >
-          <Plane className="h-8 w-8 text-white" />
-          <Palmtree className="h-8 w-8 text-white" />
-          <Mountain className="h-8 w-8 text-white" />
-          <Building2 className="h-8 w-8 text-white" />
-          <Sailboat className="h-8 w-8 text-white" />
-          <MapPin className="h-8 w-8 text-white" />
+          <Plane className="h-8 w-8 text-[#ffadaf]" />
+          <Palmtree className="h-8 w-8 text-[#fed6a5]" />
+          <Mountain className="h-8 w-8 text-[#bdb2ff]" />
+          <Building2 className="h-8 w-8 text-[#ffc6ff]" />
+          <Sailboat className="h-8 w-8 text-[#fdffb6]" />
+          <MapPin className="h-8 w-8 text-[#cafec0]" />
         </motion.div>
       </motion.div>
     </motion.section>
