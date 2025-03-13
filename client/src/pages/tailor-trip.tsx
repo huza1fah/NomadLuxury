@@ -122,6 +122,13 @@ export default function TailorTrip() {
         <CardHeader>
           <CardTitle className="text-3xl text-center text-primary">
             Tailor Your Perfect Journey
+            <p className="text-lg mt-2 text-muted-foreground">
+              {currentStep === 1 && "Step 1: Personal Information"}
+              {currentStep === 2 && "Step 2: Travel Details"}
+              {currentStep === 3 && "Step 3: Group Details"}
+              {currentStep === 4 && "Step 4: Travel Preferences"}
+              {currentStep === 5 && "Step 5: Additional Information"}
+            </p>
           </CardTitle>
           <div className="flex justify-center gap-2 mt-4">
             {Array.from({ length: totalSteps }).map((_, index) => (
