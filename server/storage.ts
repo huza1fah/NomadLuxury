@@ -1,6 +1,6 @@
 import { users, type User, type InsertUser, tripRequests, type TripRequest, type InsertTripRequest } from "@shared/schema";
-import { drizzle } from "drizzle-orm/neon-serverless";
-import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
+import { neon, neonConfig } from '@neondatabase/serverless';
 import { eq } from "drizzle-orm";
 
 export interface IStorage {
@@ -15,7 +15,12 @@ export interface IStorage {
   getAllTripRequests(): Promise<TripRequest[]>;
 }
 
+// Configure neon to use fetch
+neonConfig.fetchConnectionCache = true;
+
+// Create the SQL client
 const sql = neon(process.env.DATABASE_URL!);
+// Create the drizzle db instance with the HTTP client
 const db = drizzle(sql);
 
 export class PostgresStorage implements IStorage {
