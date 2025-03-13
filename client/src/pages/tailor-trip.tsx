@@ -15,6 +15,8 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+
 
 const travelReasons = [
   "Honeymoon",
@@ -91,6 +93,7 @@ type TripFormValues = z.infer<typeof tripFormSchema>;
 export default function TailorTrip() {
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 5;
+  const { toast } = useToast();
 
   const form = useForm<TripFormValues>({
     resolver: zodResolver(tripFormSchema),
@@ -111,9 +114,35 @@ export default function TailorTrip() {
     setCurrentStep((prev) => Math.max(prev - 1, 1));
   };
 
-  function onSubmit(data: TripFormValues) {
-    console.log(data);
-    // TODO: Handle form submission
+  async function onSubmit(data: TripFormValues) {
+    try {
+      const response = await fetch('/api/trip-requests', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit trip request');
+      }
+
+      // Reset form and show success message
+      form.reset();
+      setCurrentStep(1);
+      toast({
+        title: "Success!",
+        description: "Your trip request has been submitted. We'll be in touch soon!",
+      });
+    } catch (error) {
+      console.error('Error submitting trip request:', error);
+      toast({
+        title: "Error",
+        description: "Failed to submit trip request. Please try again.",
+        variant: "destructive",
+      });
+    }
   }
 
   return (

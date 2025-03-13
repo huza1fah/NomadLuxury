@@ -1,39 +1,52 @@
-import { users, type User, type InsertUser } from "@shared/schema";
-
-// modify the interface with any CRUD methods
-// you might need
+import { users, type User, type InsertUser, tripRequests, type TripRequest, type InsertTripRequest } from "@shared/schema";
+import { drizzle } from "drizzle-orm/neon-serverless";
+import { neon } from "@neondatabase/serverless";
+import { eq } from "drizzle-orm";
 
 export interface IStorage {
+  // User methods
   getUser(id: number): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
+
+  // Trip request methods
+  createTripRequest(request: InsertTripRequest): Promise<TripRequest>;
+  getTripRequest(id: number): Promise<TripRequest | undefined>;
+  getAllTripRequests(): Promise<TripRequest[]>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<number, User>;
-  currentId: number;
+const sql = neon(process.env.DATABASE_URL!);
+const db = drizzle(sql);
 
-  constructor() {
-    this.users = new Map();
-    this.currentId = 1;
-  }
-
+export class PostgresStorage implements IStorage {
   async getUser(id: number): Promise<User | undefined> {
-    return this.users.get(id);
+    const result = await db.select().from(users).where(eq(users.id, id));
+    return result[0];
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+    const result = await db.select().from(users).where(eq(users.username, username));
+    return result[0];
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
-    const id = this.currentId++;
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+    const result = await db.insert(users).values(insertUser).returning();
+    return result[0];
+  }
+
+  async createTripRequest(request: InsertTripRequest): Promise<TripRequest> {
+    const result = await db.insert(tripRequests).values(request).returning();
+    return result[0];
+  }
+
+  async getTripRequest(id: number): Promise<TripRequest | undefined> {
+    const result = await db.select().from(tripRequests).where(eq(tripRequests.id, id));
+    return result[0];
+  }
+
+  async getAllTripRequests(): Promise<TripRequest[]> {
+    return await db.select().from(tripRequests);
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new PostgresStorage();
