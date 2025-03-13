@@ -120,19 +120,19 @@ export default function TailorTrip() {
     <div className="min-h-screen bg-[#a0c4ff] py-12 px-4">
       <Card className="max-w-2xl mx-auto bg-white/95">
         <CardHeader>
-          <CardTitle className="text-3xl text-center text-primary mb-8">
+          <CardTitle className="text-3xl text-center text-primary">
             Tailor Your Perfect Journey
-          </CardTitle>        
-          <div className="flex justify-center gap-2 mb-6">
+          </CardTitle>
+          <div className="flex justify-center gap-2 mt-4">
             {Array.from({ length: totalSteps }).map((_, index) => (
               <div
                 key={index}
                 className={cn(
-                  "w-3 h-3 rounded-full transition-all duration-300",
+                  "w-3 h-3 rounded-full",
                   currentStep > index
-                    ? "bg-primary scale-100"
+                    ? "bg-primary"
                     : currentStep === index + 1
-                    ? "bg-primary/50 scale-110"
+                    ? "bg-primary/50"
                     : "bg-gray-200"
                 )}
               />
@@ -487,37 +487,19 @@ export default function TailorTrip() {
                     name="hotelRating"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-lg mb-2">Preferred Hotel Rating</FormLabel>
-                        <div className="flex flex-col space-y-3">
-                          <div className="flex gap-2">
-                            {[1, 2, 3, 4, 5].map((rating) => (
-                              <Button
-                                key={rating}
-                                type="button"
-                                variant="outline"
-                                className={cn(
-                                  "flex-1 p-4 hover:bg-primary/10 transition-all duration-200",
-                                  field.value >= rating 
-                                    ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                                    : "hover:border-primary"
-                                )}
-                                onClick={() => field.onChange(rating)}
-                              >
-                                <div className="flex flex-col items-center gap-1">
-                                  <StarIcon className={cn(
-                                    "h-6 w-6 transition-all duration-200",
-                                    field.value >= rating 
-                                      ? "fill-current"
-                                      : "fill-none"
-                                  )} />
-                                  <span className="text-sm">{rating}</span>
-                                </div>
-                              </Button>
-                            ))}
-                          </div>
-                          <p className="text-sm text-muted-foreground text-center">
-                            {field.value ? `${field.value} Star${field.value > 1 ? 's' : ''} Selected` : 'Select your preferred hotel rating'}
-                          </p>
+                        <FormLabel>Preferred Hotel Rating</FormLabel>
+                        <div className="flex gap-2">
+                          {[1, 2, 3, 4, 5].map((rating) => (
+                            <Button
+                              key={rating}
+                              type="button"
+                              variant={field.value >= rating ? "default" : "outline"}
+                              className="p-2"
+                              onClick={() => field.onChange(rating)}
+                            >
+                              <StarIcon className="h-4 w-4" />
+                            </Button>
+                          ))}
                         </div>
                       </FormItem>
                     )}
