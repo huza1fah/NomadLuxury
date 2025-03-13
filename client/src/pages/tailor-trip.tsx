@@ -116,12 +116,27 @@ export default function TailorTrip() {
 
   async function onSubmit(data: TripFormValues) {
     try {
+      // Create a copy of the data to modify
+      const formData = {
+        ...data,
+        // Ensure dates are properly formatted as ISO strings
+        fromDate: data.fromDate.toISOString(),
+        toDate: data.toDate.toISOString(),
+        // Ensure arrays are not undefined
+        childrenAges: data.childrenAges || [],
+        // Ensure optional text fields are not undefined
+        specialRequests: data.specialRequests || "",
+        additionalInformation: data.additionalInformation || "",
+        otherTravelReason: data.otherTravelReason || "",
+        preferredHotel: data.preferredHotel || ""
+      };
+
       const response = await fetch('/api/trip-requests', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) {

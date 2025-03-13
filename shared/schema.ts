@@ -46,37 +46,37 @@ export const insertUserSchema = createInsertSchema(users).pick({
 });
 
 export const insertTripRequestSchema = createInsertSchema(tripRequests, {
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email"),
-  phone: z.string().min(10, "Please enter a valid phone number"),
-  preferredContactMethod: z.string().min(1, "Please select a contact method"),
-  bestTimeToContact: z.string().min(1, "Please specify best time to contact"),
-  referralSource: z.string().min(1, "Please select how you heard about us"),
+    name: z.string().min(2, "Name must be at least 2 characters"),
+    email: z.string().email("Please enter a valid email"),
+    phone: z.string().min(10, "Please enter a valid phone number"),
+    preferredContactMethod: z.string().min(1, "Please select a contact method"),
+    bestTimeToContact: z.string().min(1, "Please specify best time to contact"),
+    referralSource: z.string().min(1, "Please select how you heard about us"),
 
-  departureAirport: z.string().min(1, "Please enter departure airport"),
-  destination: z.string().min(2, "Please enter your desired destination"),
-  fromDate: z.date({
-    required_error: "Please select a start date for your trip",
-  }),
-  toDate: z.date({
-    required_error: "Please select an end date for your trip",
-  }),
-  isFlexibleDates: z.boolean().default(false),
-  travelReason: z.string().min(1, "Please select a reason for travel"),
-  otherTravelReason: z.string().optional(),
+    departureAirport: z.string().min(1, "Please enter departure airport"),
+    destination: z.string().min(2, "Please enter your desired destination"),
+    fromDate: z.string().datetime({
+      message: "Please provide a valid date and time",
+    }),
+    toDate: z.string().datetime({
+      message: "Please provide a valid date and time",
+    }),
+    isFlexibleDates: z.boolean().default(false),
+    travelReason: z.string().min(1, "Please select a reason for travel"),
+    otherTravelReason: z.string().optional(),
 
-  adults: z.number().min(1, "At least 1 adult required"),
-  children: z.number().min(0),
-  childrenAges: z.array(z.number()).optional(),
+    adults: z.number().min(1, "At least 1 adult required"),
+    children: z.number().min(0),
+    childrenAges: z.array(z.number()).optional(),
 
-  hotelRating: z.number().min(1).max(5),
-  preferredHotel: z.string().optional(),
-  boardBasis: z.string().min(1, "Please select board basis"),
-  budget: z.string().min(1, "Please enter your budget range"),
+    hotelRating: z.number().min(1).max(5),
+    preferredHotel: z.string().optional(),
+    boardBasis: z.string().min(1, "Please select board basis"),
+    budget: z.string().min(1, "Please enter your budget range"),
 
-  specialRequests: z.string(),
-  additionalInformation: z.string(),
-});
+    specialRequests: z.string().optional().default(""),
+    additionalInformation: z.string().optional().default(""),
+  });
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
