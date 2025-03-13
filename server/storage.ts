@@ -35,7 +35,21 @@ export class PostgresStorage implements IStorage {
   }
 
   async createTripRequest(request: InsertTripRequest): Promise<TripRequest> {
-    const result = await db.insert(tripRequests).values(request).returning();
+    // Create a new object with the request data
+    const tripRequestData = {
+      ...request,
+      // Convert ISO date strings to Date objects
+      fromDate: new Date(request.fromDate),
+      toDate: new Date(request.toDate),
+      // Set default values for optional fields
+      childrenAges: request.childrenAges || [],
+      otherTravelReason: request.otherTravelReason || null,
+      preferredHotel: request.preferredHotel || null,
+      specialRequests: request.specialRequests || null,
+      additionalInformation: request.additionalInformation || null
+    };
+
+    const result = await db.insert(tripRequests).values(tripRequestData).returning();
     return result[0];
   }
 
