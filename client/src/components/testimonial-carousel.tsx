@@ -11,33 +11,27 @@ import { StarIcon } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Sarah Johnson",
-    role: "Executive Traveler",
+    name: "Hiatham & Zartasha",
+    role: "Costa Navarino, Greece",
     avatar: "https://images.unsplash.com/photo-1708860028064-3303a016e88f",
     content:
-      "The attention to detail and personalized service exceeded all expectations. Every moment of our journey was perfectly curated.",
+      "We are so grateful for you planning our 10 year anniversary trip. Finding the best hotels possible with the added bonus of sourcing them at fantastic rates. Honestly you made everything so seamless, went above and beyond in providing experienced, professional and thoughtful advice, taking away the headache of multiple bookings.",
   },
   {
-    name: "Michael Chen",
-    role: "Luxury Explorer",
+    name: "Tina",
+    role: "Bodrum, Turkey",
     avatar: "https://images.unsplash.com/photo-1708860028233-10da73ede2a0",
     content:
-      "Nomad Luxury Travel transformed our vacation into an unforgettable experience. Their expertise and connections are unmatched.",
+      "The service was exceptional from start to finish. Rosina secured us an amazing price for the exact specifications we needed for our family. I would highly recommend, and will definitely be booking my next getaway through Nomad Luxury Travel.",
   },
   {
-    name: "Emily Parker",
-    role: "Adventure Seeker",
+    name: "Rosina",
+    role: "Nomad Co-Founder",
     avatar: "https://images.unsplash.com/photo-1711980012199-2697edfc8794",
     content:
       "From private islands to mountain retreats, they crafted the perfect blend of luxury and adventure for our family.",
   },
-  {
-    name: "James Wilson",
-    role: "Cultural Enthusiast",
-    avatar: "https://images.unsplash.com/photo-1708860027560-bf3c060b26f4",
-    content:
-      "Their knowledge of exclusive destinations and ability to arrange unique experiences made our journey truly special.",
-  },
+  ,
 ];
 
 export function TestimonialCarousel() {
